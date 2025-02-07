@@ -12,7 +12,7 @@ const connectDB = async () => {
 
     // app.on("ERROR", (error) => {
     //   console.log("ERROR", error);
-    //   throw err;
+    //   throw error;
     // });
     // app.listen(process.env.PORT, () => {
     //   console.log(`App is listening on port${process.env.PORT}`);
