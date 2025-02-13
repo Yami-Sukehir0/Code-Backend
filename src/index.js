@@ -1,6 +1,7 @@
 // require("dotenv").config({ path: "./env" }); old version syntax
 import dotenv from "dotenv"; //new version syntax
 import connectDB from "./db/index.js";
+import { app } from "./app.js";
 dotenv.config({
   path: "./env",
 });
