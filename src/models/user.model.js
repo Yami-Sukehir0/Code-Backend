@@ -4,7 +4,7 @@
 
 import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt, { hash } from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -46,7 +46,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      lowercase: true,
+      // lowercase: true,
     },
     refreshToken: {
       type: String,
@@ -56,10 +56,13 @@ const userSchema = new Schema(
 );
 userSchema.pre("save", async function (next) {
   //bcrypt use-case
-  if (!this.isModified("password")) return next();
+  if (!(this.isModified("password"))) return next();
   this.password = await bcrypt.hash(this.password, 10);
-  next();
+  console.log("Hashed password during registration:", this.password);
+  next()
 });
+
+
 //custom methods
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
